@@ -1,10 +1,13 @@
-.PHONY: setup run build
+.PHONY: setup run build stop
 
 setup:
-	go mod download
+	docker-compose up --build
 
 run:
-	go run cmd/main.go
+	docker-compose up
 
 build:
-	go build -o bin/main cmd/main.go
+	docker-compose build
+
+stop:
+	docker-compose down
