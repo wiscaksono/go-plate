@@ -6,6 +6,7 @@ import (
 )
 
 func SetupRoutes(app *fiber.App) {
+	SetupAuthRoutes(app)
 	SetupUserRoutes(app)
 
 	app.Get("/", func(c *fiber.Ctx) error {

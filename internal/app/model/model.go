@@ -17,6 +17,12 @@ type Base struct {
 	UpdatedAt string    `json:"updated_at"`
 }
 
+type Response struct {
+	Ok      bool        `json:"ok"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data,omitempty"`
+}
+
 func (base *Base) BeforeCreate(tx *gorm.DB) error {
 	base.ID = uuid.New()
 
