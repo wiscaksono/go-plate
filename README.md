@@ -31,24 +31,8 @@ go/
 |       |-- router/
 |           |-- router.go
 |
-|-- migrations/
-|   |-- 20231123120000_create_table1.up.sql
-|   |-- 20231123120000_create_table1.down.sql
-|   |-- 20231123120001_create_table2.up.sql
-|   |-- 20231123120001_create_table2.down.sql
-|
-|-- scripts/
-|   |-- setup.sh
-|   |-- seed.sh
-|
 |-- config/
 |   |-- config.go
-|
-|-- static/
-|
-|-- templates/
-|
-|-- tests/
 |
 |-- go.mod
 |-- go.sum
@@ -64,19 +48,15 @@ go/
   - **model**: Data models.
   - **repository**: Database access logic using GORM.
   - **router**: Initializes and configures the router.
-- **migrations**: Database migration files using SQL.
 - **scripts**: Project-related scripts (e.g., setup and seeding scripts).
 - **config**: Configuration settings for the application.
-- **static**: Static files (e.g., CSS, JS).
-- **templates**: HTML templates.
-- **tests**: Test files.
 
 ## Usage
 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/myproject.git
+git clone https://github.com/wiscaksono/go-plate.git
 ```
 
 2. Install dependencies:
