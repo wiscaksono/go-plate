@@ -7,14 +7,14 @@ import (
 )
 
 func GetUser(c *fiber.Ctx) error {
-	users := new(model.User)
+	user := new(model.User)
 
-	if err := repository.DB.Find(&users).Error; err != nil {
+	if err := repository.DB.Take(&user).Error; err != nil {
 		return JSON(c, fiber.StatusInternalServerError, "Failed to fetch users", nil)
 	}
 
 	return JSON(c, fiber.StatusOK, "Success getting user data", fiber.Map{
-		"user": users,
+		"user": *user.ToUserResponse(),
 	})
 }
 
@@ -25,8 +25,13 @@ func GetUsers(c *fiber.Ctx) error {
 		return JSON(c, fiber.StatusInternalServerError, "Failed to fetch users", nil)
 	}
 
+	userResponses := make([]model.UserResponse, len(*users))
+	for i, user := range *users {
+		userResponses[i] = *user.ToUserResponse()
+	}
+
 	return JSON(c, fiber.StatusOK, "Success getting users data", fiber.Map{
-		"users": users,
+		"user": userResponses,
 	})
 }
 
@@ -34,7 +39,7 @@ func DeleteUser(c *fiber.Ctx) error {
 	id := c.Params("id")
 	user := new(model.User)
 
-	if repository.DB.Where("id = ?", id).First(&user).RowsAffected == 0 {
+	if repository.DB.Where("id = ?", id).Take(&user).RowsAffected == 0 {
 		return JSON(c, fiber.StatusNotFound, "No user found with ID", nil)
 	}
 
@@ -54,13 +59,13 @@ func UpdateUser(c *fiber.Ctx) error {
 		return JSON(c, fiber.StatusBadRequest, "Failed to parse JSON", nil)
 	}
 
-	if repository.DB.Where("id = ?", id).First(user).RowsAffected == 0 {
+	if repository.DB.Where("id = ?", id).Take(user).RowsAffected == 0 {
 		return JSON(c, fiber.StatusNotFound, "No user found with ID", nil)
 	}
 
-	if err := user.Validate(); err != nil {
-		return JSON(c, fiber.StatusBadRequest, err.Error(), nil)
-	}
+	// if err := payload.Validate(); err != nil {
+	// 	return JSON(c, fiber.StatusBadRequest, err.Error(), nil)
+	// }
 
 	if payload.Password != "" {
 		hashedPassword, err := user.HashPassword(payload.Password)
@@ -75,6 +80,6 @@ func UpdateUser(c *fiber.Ctx) error {
 	}
 
 	return JSON(c, fiber.StatusOK, "User updated successfully", fiber.Map{
-		"user": user,
+		"user": *user.ToUserResponse(),
 	})
 }

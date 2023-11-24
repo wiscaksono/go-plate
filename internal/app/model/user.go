@@ -14,6 +14,25 @@ type User struct {
 	Password string `json:"password,omitempty" gorm:"not null"`
 }
 
+type UserResponse struct {
+	Base
+	Email    string `json:"email"`
+	Username string `json:"username"`
+}
+
+func (u *User) ToUserResponse() *UserResponse {
+	return &UserResponse{
+		Base:     u.Base,
+		Email:    u.Email,
+		Username: u.Username,
+	}
+}
+
+func (u *User) HashPassword(password string) (string, error) {
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
+	return string(hashedPassword), err
+}
+
 func (u *User) Validate() error {
 	if u.Username == "" {
 		return errors.New("username is required")
@@ -32,11 +51,6 @@ func (u *User) Validate() error {
 	}
 
 	return nil
-}
-
-func (u *User) HashPassword(password string) (string, error) {
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
-	return string(hashedPassword), err
 }
 
 func validateEmail(email string) error {

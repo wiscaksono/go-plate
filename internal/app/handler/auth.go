@@ -47,9 +47,7 @@ func Register(c *fiber.Ctx) error {
 		return err
 	}
 
-	newUser.Password = ""
-
 	return JSON(c, fiber.StatusCreated, "User created successfully", fiber.Map{
-		"user": newUser,
+		"user": newUser.ToUserResponse(),
 	})
 }
