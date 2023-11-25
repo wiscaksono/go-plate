@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"log"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
@@ -23,8 +24,10 @@ func Login(c *fiber.Ctx) error {
 		return JSON(c, fiber.StatusBadRequest, "Validation error", err)
 	}
 
+	log.Println(payload.Email)
+
 	user := new(model.User)
-	if repository.DB.Where("email = ?", payload.Email).First(&user).Error != nil {
+	if repository.DB.Where("email = ?", payload.Email).Take(&user).Error != nil {
 		return JSON(c, fiber.StatusNotFound, "User not found", nil)
 	}
 
@@ -54,7 +57,7 @@ func Register(c *fiber.Ctx) error {
 	newUser := model.User{
 		Username: strings.ToLower(user.Username),
 		Email:    strings.ToLower(user.Email),
-		Password: user.Password,
+		Password: util.HashPassword(user.Password),
 	}
 
 	if err := repository.DB.Create(&newUser).Error; err != nil {

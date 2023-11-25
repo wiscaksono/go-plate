@@ -22,7 +22,9 @@ func GetUser(c *fiber.Ctx) error {
 func GetUsers(c *fiber.Ctx) error {
 	var users []model.User
 
-	if count := repository.DB.Find(&users).RowsAffected; count == 0 {
+	count := repository.DB.Find(&users).RowsAffected
+
+	if count == 0 {
 		return JSON(c, fiber.StatusInternalServerError, "Users not found", fiber.Map{
 			"users": []model.User{},
 		})
@@ -30,6 +32,7 @@ func GetUsers(c *fiber.Ctx) error {
 
 	return JSON(c, fiber.StatusOK, "Success getting users data", fiber.Map{
 		"users": dto.CreateUsersResponse(users),
+		"count": count,
 	})
 }
 
