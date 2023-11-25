@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/monitor"
 	"github.com/wiscaksono/go-plate/config"
 )
 
@@ -15,4 +16,6 @@ func SetupRoutes(app *fiber.App) {
 			"version": config.AppVersion,
 		})
 	})
+
+	app.Get("/metrics", monitor.New(monitor.Config{Title: "Go Plate Matrics"}))
 }

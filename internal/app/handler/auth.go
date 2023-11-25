@@ -6,7 +6,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/wiscaksono/go-plate/internal/app/model"
 	"github.com/wiscaksono/go-plate/internal/app/repository"
-	"golang.org/x/crypto/bcrypt"
 )
 
 func Register(c *fiber.Ctx) error {
@@ -30,24 +29,22 @@ func Register(c *fiber.Ctx) error {
 		})
 	}
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	hashedPassword, err := user.HashPassword(user.Password)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Could not hash password",
 		})
 	}
 
-	newUser := model.User{
-		Email:    strings.ToLower(user.Email),
-		Username: user.Username,
-		Password: string(hashedPassword),
-	}
+	user.Username = strings.ToLower(user.Username)
+	user.Email = strings.ToLower(user.Email)
+	user.Password = hashedPassword
 
-	if err := repository.DB.Create(&newUser).Error; err != nil {
+	if err := repository.DB.Create(&user).Error; err != nil {
 		return err
 	}
 
 	return JSON(c, fiber.StatusCreated, "User created successfully", fiber.Map{
-		"user": newUser.ToUserResponse(),
+		"user": user.ToUserResponse(),
 	})
 }

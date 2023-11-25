@@ -31,7 +31,7 @@ func GetUsers(c *fiber.Ctx) error {
 	}
 
 	return JSON(c, fiber.StatusOK, "Success getting users data", fiber.Map{
-		"user": userResponses,
+		"users": userResponses,
 	})
 }
 
@@ -63,9 +63,9 @@ func UpdateUser(c *fiber.Ctx) error {
 		return JSON(c, fiber.StatusNotFound, "No user found with ID", nil)
 	}
 
-	// if err := payload.Validate(); err != nil {
-	// 	return JSON(c, fiber.StatusBadRequest, err.Error(), nil)
-	// }
+	if err := payload.Validate(); err != nil {
+		return JSON(c, fiber.StatusBadRequest, err.Error(), nil)
+	}
 
 	if payload.Password != "" {
 		hashedPassword, err := user.HashPassword(payload.Password)

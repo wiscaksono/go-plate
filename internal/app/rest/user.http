@@ -1,0 +1,5 @@
+GET {{BASE_URL}}/user
+
+GET {{BASE_URL}}/user/e1f61e12-8f4e-44f6-8e81-0bee30d590ba
+
+DELETE {{BASE_URL}}/user/a2b33a39-17d7-480b-8978-aec52089430d
