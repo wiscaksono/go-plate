@@ -20,6 +20,20 @@ type UserResponse struct {
 	Username string `json:"username"`
 }
 
+type UserLogin struct {
+	Email    string `json:"email"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+func (u *User) ToUserLogin() *UserLogin {
+	return &UserLogin{
+		Email:    u.Email,
+		Username: u.Username,
+		Password: u.Password,
+	}
+}
+
 func (u *User) ToUserResponse() *UserResponse {
 	return &UserResponse{
 		Base:     u.Base,
@@ -50,6 +64,13 @@ func (u *User) Validate() error {
 		return err
 	}
 
+	return nil
+}
+
+func (u *User) ComparePassword(password string) error {
+	if err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password)); err != nil {
+		return err
+	}
 	return nil
 }
 
