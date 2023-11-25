@@ -8,7 +8,6 @@ import (
 
 func SetupUserRoutes(app *fiber.App) {
 	user := app.Group("/user")
-
 	user.Use(middleware.Protected)
 
 	user.Get("/", handler.GetUsers)

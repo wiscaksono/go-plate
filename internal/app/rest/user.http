@@ -1,5 +1,8 @@
 GET {{BASE_URL}}/user
+Authorization: Bearer {{TOKEN}}
 
-GET {{BASE_URL}}/user/e1f61e12-8f4e-44f6-8e81-0bee30d590ba
+GET {{BASE_URL}}/user/f62ae8ce-0888-4ce4-a887-41c7fbf2c360
+Authorization: Bearer {{TOKEN}}
 
-DELETE {{BASE_URL}}/user/c34cd7be-a13d-453c-a4f2-ab60dac10f2d
+DELETE {{BASE_URL}}/user/0f87659f-167d-4239-a6a8-35caf37b5d36
+Authorization: Bearer {{TOKEN}}
