@@ -1,0 +1,10 @@
+GET {{BASE_URL}}/todo
+Authorization: Bearer {{TOKEN}}
+
+POST {{BASE_URL}}/todo
+Authorization: Bearer {{TOKEN}}
+
+{
+    "title": "BRUAKAKAKA",
+    "completed": false
+}

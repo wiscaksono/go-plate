@@ -37,5 +37,13 @@ func Protected(c *fiber.Ctx) error {
 		})
 	}
 
+	userId, err := GetUserIDFromToken(tokenString)
+	if err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"message": "Unauthorized",
+		})
+	}
+	c.Locals("userId", userId)
+
 	return c.Next()
 }

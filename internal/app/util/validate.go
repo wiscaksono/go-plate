@@ -11,7 +11,6 @@ var validate = validator.New()
 func ValidateStruct[T any](payload T) []string {
 	var errors []string
 	err := validate.Struct(payload)
-	fmt.Println(err)
 	if err != nil {
 		for _, err := range err.(validator.ValidationErrors) {
 			var element string

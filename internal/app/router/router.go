@@ -9,6 +9,7 @@ import (
 func SetupRoutes(app *fiber.App) {
 	SetupAuthRoutes(app)
 	SetupUserRoutes(app)
+	SetupTodoRoutes(app)
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusOK).JSON(fiber.Map{
