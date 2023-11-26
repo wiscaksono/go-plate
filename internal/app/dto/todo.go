@@ -16,6 +16,16 @@ func CreateTodoResponse(todo *model.Todo) *TodoResponse {
 	}
 }
 
+func CreateTodoResponses(todos *[]model.Todo) *[]TodoResponse {
+	var todoResponses []TodoResponse
+
+	for _, todo := range *todos {
+		todoResponses = append(todoResponses, *CreateTodoResponse(&todo))
+	}
+
+	return &todoResponses
+}
+
 type TodoRequest struct {
 	Title     string `json:"title" validate:"required"`
 	Completed bool   `json:"completed" validate:"required"`
@@ -26,4 +36,9 @@ func CreateTodoRequest(todo *model.Todo) *TodoRequest {
 		Title:     todo.Title,
 		Completed: todo.Completed,
 	}
+}
+
+type TodoUpdateRequest struct {
+	Title     string `json:"title"`
+	Completed bool   `json:"completed"`
 }

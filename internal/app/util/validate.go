@@ -14,7 +14,7 @@ func ValidateStruct[T any](payload T) []string {
 	if err != nil {
 		for _, err := range err.(validator.ValidationErrors) {
 			var element string
-			element = fmt.Sprintf("%s is %s", err.Field(), err.Tag())
+			element = fmt.Sprintf("%s %s %s", err.Field(), err.Tag(), err.Kind())
 			errors = append(errors, element)
 		}
 	}

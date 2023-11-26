@@ -3,8 +3,29 @@ Authorization: Bearer {{TOKEN}}
 
 POST {{BASE_URL}}/todo
 Authorization: Bearer {{TOKEN}}
+Content-Type: application/json
 
 {
-    "title": "BRUAKAKAKA",
-    "completed": false
+    "title": "SAUT TODO 321",
+    "completed": true
 }
+
+
+GET {{BASE_URL}}/todo/788a4ee6-0c3b-4bd4-b095-2f34989f98fb
+Authorization: Bearer {{TOKEN}}
+
+DELETE {{BASE_URL}}/todo/788a4ee6-0c3b-4bd4-b095-2f34989f98fb
+Authorization: Bearer {{TOKEN}}
+
+PUT {{BASE_URL}}/todo/6eb10638-c34b-4834-91bd-671a5ee5822e
+Authorization: Bearer {{TOKEN}}
+Content-Type: application/json
+
+{
+    "title": "KONTOL",
+    "completed": true
+}
+
+
+DELETE {{BASE_URL}}/todo/all
+Authorization: Bearer {{TOKEN}}

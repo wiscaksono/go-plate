@@ -7,13 +7,6 @@ type AuthLoginRequest struct {
 	Password string `json:"password" validate:"required"`
 }
 
-func CreateAuthLoginRequest(email, password string) *AuthLoginRequest {
-	return &AuthLoginRequest{
-		Email:    email,
-		Password: password,
-	}
-}
-
 type AuthLoginResponse struct {
 	Token string      `json:"token"`
 	User  *model.User `json:"user"`
@@ -30,14 +23,6 @@ type AuthRegisterRequest struct {
 	Username string `json:"username" validate:"required"`
 	Email    string `json:"email" validate:"required"`
 	Password string `json:"password" validate:"required"`
-}
-
-func CreateAuthRegisterRequest(username, email, password string) *AuthRegisterRequest {
-	return &AuthRegisterRequest{
-		Username: username,
-		Email:    email,
-		Password: password,
-	}
 }
 
 type AuthRegisterResponse struct {

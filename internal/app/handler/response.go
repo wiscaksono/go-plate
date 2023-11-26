@@ -7,7 +7,7 @@ import (
 
 func JSON(c *fiber.Ctx, statusCode int, message string, data interface{}) error {
 	response := model.Response{
-		Ok:      statusCode <= 400,
+		Ok:      statusCode <= 399,
 		Message: message,
 		Data:    data,
 	}
