@@ -2,18 +2,16 @@ POST {{BASE_URL}}/auth/register
 Content-Type: application/json
 
 {
-    "email": "saut@wiscaksono.com",
-    "username": "sautmanurang",
-    "password": "Saut123123123"
+    "email": "admin@wiscaksono.com",
+    "username": "wiscaksono",
+    "password": "Wisnuajjh123"
 }
-
-
 
 POST {{BASE_URL}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "saut@wiscaksono.com",
-    "password": "Saut123123123"
+    "email": "admin@wiscaksono.com",
+    "password": "Wisnuajjh123"
 }
 

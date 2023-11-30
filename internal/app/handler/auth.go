@@ -36,7 +36,7 @@ func Login(c *fiber.Ctx) error {
 		return JSON(c, fiber.StatusUnauthorized, "Password is incorrect", nil)
 	}
 
-	return JSON(c, fiber.StatusOK, "Login success", dto.CreateAuthLoginResponse(middleware.GenerateToken(user), user))
+	return JSON(c, fiber.StatusOK, "Login success", dto.CreateAuthLoginResponse(middleware.GenerateToken(user), dto.CreateUserResponse(user)))
 }
 
 func Register(c *fiber.Ctx) error {

@@ -4,8 +4,9 @@ import "github.com/wiscaksono/go-plate/internal/app/model"
 
 type UserResponse struct {
 	model.Base
-	Email    string `json:"email"`
-	Username string `json:"username"`
+	Email    string         `json:"email"`
+	Username string         `json:"username"`
+	Role     model.UserRole `json:"role"`
 }
 
 func CreateUserResponse(user *model.User) *UserResponse {
@@ -13,6 +14,7 @@ func CreateUserResponse(user *model.User) *UserResponse {
 		Base:     user.Base,
 		Email:    user.Email,
 		Username: user.Username,
+		Role:     user.Role,
 	}
 }
 

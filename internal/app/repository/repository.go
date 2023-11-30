@@ -23,7 +23,7 @@ func InitDatabase() error {
 		return err
 	}
 
-	err = db.AutoMigrate(&model.User{}, &model.Todo{})
+	err = db.AutoMigrate(new(model.User), new(model.Todo))
 
 	log.Println("Connected to database.")
 
